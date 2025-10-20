@@ -1,8 +1,10 @@
 
 
 from django.shortcuts import render
+from rest_framework import generics
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
@@ -15,8 +17,8 @@ class LoginView(ObtainAuthToken):
 
 
 #
-# class LogoutView(generics.GenericAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     def post(self, request):
-#         request.user.auth_token.delete()
-#         return Response(status=200)
+class LogoutView(generics.GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request):
+        request.user.auth_token.delete()
+        return Response(status=200)
